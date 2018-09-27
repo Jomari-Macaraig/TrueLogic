@@ -15,7 +15,7 @@ def get_place_details(place_id):
     return {
         'name': result['name'],
         'address': result['formatted_address'],
-        'website': result['website'],
+        'website': result.get('website'),
         'contact_number': result['formatted_phone_number'],
     }
 
