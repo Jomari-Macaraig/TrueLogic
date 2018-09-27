@@ -9,5 +9,5 @@ def get_places(request):
     query = request.GET['query']
     places = get_places_details(query=query)
     serializer = PlaceSerializer(places, many=True)
-    return serializer.data
+    return Response(serializer.data)
 
