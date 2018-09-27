@@ -16,12 +16,12 @@
 	<body>
 	
 			<label for="query">Entery niche</label>
-			<input type=text name="query">
+			<input type=text name="query" id="query_value">
 			<button id="query">Submit</button>
 		
 	<script>
 		$("#query").click(function () {
-			var query = $(this).val()
+			var query = $("#query_value").val()
 			$.ajax({
 				url: "/api/places?query=" + query,
 				success: function(result) {

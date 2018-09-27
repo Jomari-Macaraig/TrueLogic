@@ -21,7 +21,7 @@ def get_place_details(place_id):
 
 def get_places(query, token=None, results=None):
     results = results or []
-    place_ids, page_token = find_place_ids(query, page_token=token, results=[])
+    place_ids, page_token = find_place_ids(query, page_token=token)
     places = []
     for place_id in place_ids:
         place = get_place_details(place_id)
