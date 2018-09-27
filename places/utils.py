@@ -1,6 +1,6 @@
 import googlemaps
 
-client = googlemaps.Client('AIzaSyCn3YGIibVn_wFzfhaFwsi759fEsvNuwUM')
+client = googlemaps.Client('AIzaSyDiUC9hvx9tYVmtgAvqYecdAK9wMkSY6xU')
 
 def find_place_ids(query, page_token=None):
     places = client.places(query=query, page_token=page_token)

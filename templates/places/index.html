@@ -22,19 +22,24 @@
 			<label for="query">Entery Niche:</label>
 			<input type=text name="query" v-model="query">
 			<button @click="search">Submit</button>
-			<table v-show="data.length">
-				<th>
-					<td>Name</td>
-					<td>Address</td>
-					<td>Website</td>
-					<td>Number</td>
-				</th>
-				<tr v-for="r in data">
-					<td>{${r.name}</td>
-					<td>{${r.address}</td>
-					<td>{${r.website}</td>
-					<td>{${r.number}</td>
-				</tr>
+			${dataset}
+			<table>
+				<thead>
+					<th>
+						<td>Name</td>
+						<td>Address</td>
+						<td>Website</td>
+						<td>Number</td>
+					</th>
+				</thead>
+				<tbody>
+					<tr v-for="r in dataset">
+						<td>${r.name}</td>
+						<td>${r.address}</td>
+						<td>${r.website}</td>
+						<td>${r.number}</td>
+					</tr>
+				</tbody>
 			</table>
 		</div>
 
@@ -45,16 +50,22 @@
 			el: '#app',
 			delimiters: ['${', '}'],
 			data: {
-				"data": [],
-				"query": ""
+				dataset: [],
+				query: ""
 			},
 			methods: {
-				search: function () {
+				search () {
 					axios.get("/api/places?query=" + this.query)
 					.then(function (response) {
-						this.data = response.data
-						console.log(this.data)
+						this.dataset = response.data
+						console.log(response)
+						console.log(this.dataset)
 					})
+				}
+			},
+			computed: {
+				hasData () {
+					return this.dataset.length
 				}
 			}
 		})
