@@ -6,8 +6,7 @@ from .serializers import PlaceSerializer
 
 @api_view(['GET'])
 def get_places(request):
-    import pdb
-    pdb.set_trace()
+    query = request.GET['query']
     places = get_places(query=query)
     serializer = PlaceSerializer(places, many=True)
     return serializer.data

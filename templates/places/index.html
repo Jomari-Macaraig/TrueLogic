@@ -23,8 +23,7 @@
 		$("#query").click(function () {
 			var query = $(this).val()
 			$.ajax({
-				url: "/api/places",
-				params: {"query": query},
+				url: "/api/places?query=" + query,
 				success: function(result) {
 					console.log(result)
 				}
