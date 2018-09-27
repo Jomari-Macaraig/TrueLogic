@@ -18,3 +18,17 @@ def get_place_details(place_id):
         'website': result['website'],
         'contact_number': result['formatted_phone_number'],
     }
+
+def get_places(query, token=None, results=None):
+    results = results or []
+    place_ids, page_token = find_place_ids(query, page_token=token, results=[])
+    places = []
+    for place_id in place_ids:
+        place = get_place_details(place_id)
+        if place['website']:
+            places.append(place)
+    results.extend(places)
+    if not len(results) == 30:
+        return get_places(query=query, token=page_token, results=results)
+    return results
+
