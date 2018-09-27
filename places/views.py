@@ -4,4 +4,4 @@ from django.views.generic.base import TemplateView
 # Create your views here.
 
 class PlaceView(TemplateView):
-    template_name = 'templates/index.html'
+    template_name = 'places/index.html'
