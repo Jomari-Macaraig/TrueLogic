@@ -1,33 +1,62 @@
 <html>
 	<head>
-	    <link rel="stylesheet"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-    >
-    <link rel="stylesheet"
-          href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
-          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
-          crossorigin="anonymous"
-    >
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
-    </script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+		<link rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		>
+		<link rel="stylesheet"
+			href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+			integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
+			crossorigin="anonymous"
+		>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js">
+		</script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	</head>
 	<body>
-	
-			<label for="query">Entery niche</label>
-			<input type=text name="query" id="query_value">
-			<button id="query">Submit</button>
+		<div id="app">
+			<label for="query">Entery Niche:</label>
+			<input type=text name="query" v-model="query">
+			<button @click="search">Submit</button>
+			<table v-show="data.length">
+				<th>
+					<td>Name</td>
+					<td>Address</td>
+					<td>Website</td>
+					<td>Number</td>
+				</th>
+				<tr v-for="r in data">
+					<td>{${r.name}</td>
+					<td>{${r.address}</td>
+					<td>{${r.website}</td>
+					<td>{${r.number}</td>
+				</tr>
+			</table>
+		</div>
+
+			
 		
 	<script>
-		$("#query").click(function () {
-			var query = $("#query_value").val()
-			$.ajax({
-				url: "/api/places?query=" + query,
-				success: function(result) {
-					console.log(result)
+		var app = new Vue({
+			el: '#app',
+			delimiters: ['${', '}'],
+			data: {
+				"data": [],
+				"query": ""
+			},
+			methods: {
+				search: function () {
+					axios.get("/api/places?query=" + this.query)
+					.then(function (response) {
+						this.data = response.data
+						console.log(this.data)
+					})
 				}
-			})
+			}
 		})
 	</script>
 	</body>
